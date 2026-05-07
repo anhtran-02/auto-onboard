@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auto-Onboard – Chính thức ra mắt cho Partial Use Cases</title>
+<style>
+  :root {
+    --purple-50: #EEEDFE; --purple-100: #CECBF6; --purple-200: #AFA9EC;
+    --purple-400: #7F77DD; --purple-600: #534AB7; --purple-800: #3C3489; --purple-900: #26215C;
+    --teal-50: #E1F5EE; --teal-100: #9FE1CB; --teal-200: #5DCAA5;
+    --teal-400: #1D9E75; --teal-600: #0F6E56; --teal-800: #085041;
+    --coral-50: #FAECE7; --coral-100: #F5C4B3; --coral-200: #F0997B;
+    --coral-400: #D85A30; --coral-600: #993C1D; --coral-800: #712B13;
+    --blue-50: #E6F1FB; --blue-200: #85B7EB; --blue-400: #378ADD;
+    --blue-600: #185FA5; --blue-800: #0C447C;
+    --amber-50: #FAEEDA; --amber-200: #EF9F27; --amber-400: #BA7517; --amber-800: #633806;
+    --green-50: #EAF3DE; --green-200: #97C459; --green-400: #639922; --green-800: #27500A;
+    --gray-50: #F1EFE8; --gray-100: #D3D1C7; --gray-200: #B4B2A9;
+    --gray-400: #888780; --gray-600: #5F5E5A; --gray-800: #444441;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 15px; line-height: 1.65; color: #2C2C2A;
+    background: #F8F7F4;
+  }
+  .page { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--purple-900) 0%, var(--purple-600) 60%, var(--teal-600) 100%);
+    color: white;
+    padding: 56px 48px 52px;
+    border-radius: 0 0 24px 24px;
+    margin: 0 -24px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 80% 20%, rgba(93,202,165,0.18) 0%, transparent 60%);
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+    color: white; font-size: 12px; font-weight: 500; letter-spacing: 0.5px;
+    padding: 5px 12px; border-radius: 20px; margin-bottom: 20px;
+  }
+  .hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: #5DCAA5; display: inline-block; }
+  .hero h1 {
+    font-size: 38px; font-weight: 700; line-height: 1.15; margin-bottom: 16px;
+    color: white;
+  }
+  .hero h1 span { color: #9FE1CB; }
+  .hero-sub {
+    font-size: 16px; color: rgba(255,255,255,0.82); max-width: 520px; margin-bottom: 40px; line-height: 1.6;
+  }
+  .hero-kpis {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  }
+  .kpi-card {
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 14px; padding: 18px 16px;
+  }
+  .kpi-number { font-size: 28px; font-weight: 700; color: white; line-height: 1; margin-bottom: 6px; }
+  .kpi-number.accent { color: #9FE1CB; }
+  .kpi-label { font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.4; }
+
+  /* SECTION LABELS */
+  .section-tag {
+    display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--purple-600);
+    background: var(--purple-50); border: 1px solid var(--purple-100);
+    padding: 4px 10px; border-radius: 6px; margin-bottom: 12px;
+  }
+  .section-tag.teal { color: var(--teal-600); background: var(--teal-50); border-color: var(--teal-100); }
+  .section-tag.coral { color: var(--coral-600); background: var(--coral-50); border-color: var(--coral-100); }
+  .section-tag.amber { color: var(--amber-400); background: var(--amber-50); border-color: #FAC775; }
+
+  h2 { font-size: 26px; font-weight: 700; color: #26215C; line-height: 1.25; margin-bottom: 8px; }
+  h3 { font-size: 16px; font-weight: 600; color: #26215C; margin-bottom: 8px; }
+  .section { margin-bottom: 56px; }
+
+  /* ATTRIBUTE TYPES */
+  .attr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 24px; }
+  .attr-card {
+    border-radius: 16px; padding: 24px; border: 1.5px solid transparent;
+  }
+  .attr-card.partial {
+    background: linear-gradient(145deg, var(--purple-50), white);
+    border-color: var(--purple-200);
+  }
+  .attr-card.tag {
+    background: linear-gradient(145deg, var(--teal-50), white);
+    border-color: var(--teal-200);
+  }
+  .attr-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+    padding: 4px 10px; border-radius: 20px; margin-bottom: 14px;
+  }
+  .attr-badge.partial-badge { background: var(--purple-100); color: var(--purple-800); }
+  .attr-badge.tag-badge { background: var(--teal-100); color: var(--teal-800); }
+  .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #1D9E75; display: inline-block; }
+  .attr-card h3 { font-size: 17px; margin-bottom: 6px; }
+  .attr-card .subtitle { font-size: 13px; color: var(--gray-600); margin-bottom: 16px; }
+  .use-cases { list-style: none; }
+  .use-cases li {
+    font-size: 13px; color: var(--gray-800);
+    background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.07);
+    border-radius: 8px; padding: 8px 12px; margin-bottom: 8px;
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .use-cases li::before { content: '›'; color: var(--purple-400); font-weight: 700; flex-shrink: 0; }
+  .attr-card.tag .use-cases li::before { color: var(--teal-400); }
+
+  /* BENEFITS */
+  .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+  .benefit-card {
+    background: white; border: 1px solid var(--gray-100);
+    border-radius: 16px; padding: 22px 20px;
+  }
+  .benefit-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 14px;
+  }
+  .benefit-icon.purple-bg { background: var(--purple-50); }
+  .benefit-icon.teal-bg { background: var(--teal-50); }
+  .benefit-icon.amber-bg { background: var(--amber-50); }
+  .benefit-card h3 { font-size: 15px; margin-bottom: 8px; }
+  .benefit-card p { font-size: 13px; color: var(--gray-600); line-height: 1.5; }
+
+  /* PROCESS FLOW */
+  .flow-container { margin-top: 24px; }
+  .flow-steps {
+    display: flex; align-items: flex-start; gap: 0; margin-bottom: 16px; overflow-x: auto;
+  }
+  .flow-step {
+    display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 90px;
+    position: relative;
+  }
+  .flow-step:not(:last-child)::after {
+    content: '';
+    position: absolute; top: 20px; left: calc(50% + 20px);
+    width: calc(100% - 40px); height: 2px;
+    background: var(--gray-100);
+    z-index: 0;
+  }
+  .flow-step.auto::after { background: var(--purple-200); }
+  .step-circle {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; margin-bottom: 10px;
+    position: relative; z-index: 1;
+  }
+  .step-circle.manual { background: var(--gray-50); border: 2px solid var(--gray-200); color: var(--gray-600); }
+  .step-circle.automated { background: var(--purple-600); color: white; box-shadow: 0 0 0 4px var(--purple-100); }
+  .step-circle.success { background: var(--teal-400); color: white; box-shadow: 0 0 0 4px var(--teal-50); }
+  .step-label { font-size: 11px; text-align: center; color: var(--gray-600); line-height: 1.3; max-width: 80px; }
+  .step-label strong { display: block; font-size: 11px; color: var(--gray-800); margin-bottom: 2px; }
+  .auto-note {
+    background: var(--purple-50); border: 1px solid var(--purple-100);
+    border-radius: 10px; padding: 12px 16px;
+    font-size: 13px; color: var(--purple-800); display: flex; align-items: center; gap: 8px;
+  }
+  .auto-note .note-icon { font-size: 16px; flex-shrink: 0; }
+
+  /* BEFORE/AFTER */
+  .ba-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+  .ba-card {
+    background: white; border: 1px solid var(--gray-100); border-radius: 16px; overflow: hidden;
+  }
+  .ba-header {
+    padding: 16px 18px 14px;
+    border-bottom: 1px solid var(--gray-100);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .ba-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; font-size: 18px;
+  }
+  .ba-icon.sync { background: var(--purple-50); }
+  .ba-icon.time { background: var(--amber-50); }
+  .ba-icon.data { background: var(--teal-50); }
+  .ba-header h3 { font-size: 14px; }
+  .ba-body { padding: 14px 18px; }
+  .ba-row { margin-bottom: 12px; }
+  .ba-row:last-child { margin-bottom: 0; }
+  .ba-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.8px;
+    text-transform: uppercase; margin-bottom: 5px; display: flex; align-items: center; gap: 5px;
+  }
+  .ba-label.before-label { color: var(--coral-400); }
+  .ba-label.after-label { color: var(--teal-400); }
+  .ba-label .ba-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+  .ba-label.before-label .ba-dot { background: var(--coral-400); }
+  .ba-label.after-label .ba-dot { background: var(--teal-400); }
+  .ba-text {
+    font-size: 12px; line-height: 1.45; padding: 8px 10px; border-radius: 8px;
+  }
+  .ba-text.before { background: var(--coral-50); color: var(--coral-800); }
+  .ba-text.after { background: var(--teal-50); color: var(--teal-800); font-weight: 500; }
+  .ba-arrow {
+    text-align: center; color: var(--gray-200); font-size: 18px; margin: 6px 0; line-height: 1;
+  }
+
+  /* SLA COMPARE */
+  .sla-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 24px; }
+  .sla-card {
+    border-radius: 16px; padding: 24px;
+    border: 2px solid transparent;
+  }
+  .sla-card.featured {
+    background: white; border-color: var(--purple-400);
+    box-shadow: 0 0 0 4px var(--purple-50);
+  }
+  .sla-card.plain { background: white; border-color: var(--gray-100); }
+  .sla-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+  .sla-card-header h3 { font-size: 16px; }
+  .sla-badge {
+    font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px;
+  }
+  .sla-badge.live { background: var(--teal-50); color: var(--teal-600); border: 1px solid var(--teal-200); }
+  .sla-badge.manual { background: var(--amber-50); color: var(--amber-400); border: 1px solid #FAC775; }
+  .sla-row {
+    display: flex; align-items: flex-start; gap: 12px; padding: 10px 0;
+    border-bottom: 1px solid var(--gray-50);
+  }
+  .sla-row:last-child { border-bottom: none; }
+  .sla-row-icon { font-size: 16px; width: 24px; flex-shrink: 0; padding-top: 2px; }
+  .sla-row-label { font-size: 12px; color: var(--gray-600); margin-bottom: 2px; }
+  .sla-row-value { font-size: 14px; font-weight: 600; color: var(--gray-800); }
+  .sla-row-value.highlight { color: var(--purple-600); }
+  .sla-row-value.warn { color: var(--coral-400); }
+
+  /* ROADMAP */
+  .roadmap { margin-top: 28px; }
+  .roadmap-item {
+    display: flex; gap: 20px; margin-bottom: 0; position: relative;
+  }
+  .roadmap-item:not(:last-child) .rm-line {
+    position: absolute; left: 19px; top: 40px; bottom: -1px;
+    width: 2px; background: var(--gray-100);
+  }
+  .rm-icon-wrap {
+    flex-shrink: 0; display: flex; flex-direction: column; align-items: center;
+  }
+  .rm-icon {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 700; flex-shrink: 0; z-index: 1;
+  }
+  .rm-icon.done { background: var(--teal-400); color: white; }
+  .rm-icon.upcoming { background: var(--purple-100); color: var(--purple-800); }
+  .rm-icon.future { background: var(--gray-50); color: var(--gray-400); border: 2px dashed var(--gray-200); }
+  .rm-content {
+    background: white; border: 1px solid var(--gray-100); border-radius: 14px;
+    padding: 18px 20px; flex: 1; margin-bottom: 16px;
+  }
+  .rm-content.active-phase { border-color: var(--teal-200); background: linear-gradient(135deg, var(--teal-50), white); }
+  .rm-content.next-phase { border-color: var(--purple-200); background: linear-gradient(135deg, var(--purple-50), white); }
+  .rm-phase-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 6px; display: flex; align-items: center; gap: 8px;
+  }
+  .rm-phase-label.green { color: var(--teal-600); }
+  .rm-phase-label.purple { color: var(--purple-600); }
+  .rm-phase-label.gray { color: var(--gray-400); }
+  .phase-tag {
+    font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px;
+  }
+  .phase-tag.released { background: var(--teal-50); color: var(--teal-600); border: 1px solid var(--teal-200); }
+  .phase-tag.planned { background: var(--purple-50); color: var(--purple-600); border: 1px solid var(--purple-100); }
+  .phase-tag.discuss { background: var(--gray-50); color: var(--gray-600); border: 1px solid var(--gray-100); }
+  .rm-content h3 { font-size: 16px; margin-bottom: 6px; }
+  .rm-content p { font-size: 13px; color: var(--gray-600); line-height: 1.5; }
+  .rm-content .tech-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .tech-tag {
+    font-size: 11px; font-family: monospace; padding: 3px 8px; border-radius: 6px;
+    background: var(--gray-50); color: var(--gray-800); border: 1px solid var(--gray-100);
+  }
+
+  /* CTA */
+  .cta-box {
+    background: linear-gradient(135deg, var(--purple-900), var(--purple-600));
+    border-radius: 20px; padding: 40px 40px 40px;
+    text-align: center; color: white; margin-top: 56px;
+    position: relative; overflow: hidden;
+  }
+  .cta-box::before {
+    content: ''; position: absolute; top: -40px; right: -40px;
+    width: 200px; height: 200px; border-radius: 50%;
+    background: rgba(93,202,165,0.12);
+  }
+  .cta-box h2 { color: white; font-size: 24px; margin-bottom: 10px; }
+  .cta-box p { color: rgba(255,255,255,0.75); font-size: 15px; margin-bottom: 28px; max-width: 440px; margin-left: auto; margin-right: auto; }
+  .cta-steps { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 0; }
+  .cta-step {
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px; padding: 14px 18px; text-align: left; min-width: 180px;
+  }
+  .cta-step-num { font-size: 11px; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+  .cta-step-text { font-size: 14px; color: white; font-weight: 500; }
+
+  /* DIVIDER */
+  .divider { border: none; border-top: 1px solid var(--gray-100); margin: 0 0 48px; }
+
+  /* INTRO TEXT */
+  .intro-text { font-size: 15px; color: var(--gray-600); max-width: 600px; margin-bottom: 0; line-height: 1.6; }
+
+  .tip-box {
+    background: var(--amber-50); border-left: 3px solid var(--amber-200);
+    border-radius: 0 10px 10px 0; padding: 12px 16px;
+    font-size: 13px; color: var(--amber-800); margin-top: 20px;
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .tip-icon { font-size: 16px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">
+      <span class="dot"></span> RELEASED 5 MAY 2026
+    </div>
+    <h1>Auto-Onboard <span>chính thức ra mắt</span><br>cho Partial Use Cases</h1>
+    <p class="hero-sub">BU không cần chờ nữa — attribute live trong vòng 6 tiếng, activate campaign ngay trong ngày được duyệt.</p>
+    <div class="hero-kpis">
+      <div class="kpi-card">
+        <div class="kpi-number accent">&lt;6h</div>
+        <div class="kpi-label">Time to Live sau khi duyệt</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-number accent">0</div>
+        <div class="kpi-label">Bước thủ công sau duyệt</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-number">Same Day</div>
+        <div class="kpi-label">BU Activation trong ngày</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-number accent">↓ Risk</div>
+        <div class="kpi-label">Human error được loại bỏ</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT IS ATTRIBUTE -->
+  <div class="section">
+    <div class="section-tag">Attribute là gì với BU</div>
+    <h2>BU có thể làm gì từ attribute?</h2>
+    <p class="intro-text">Attribute là cầu nối giữa data và campaign. BU dùng attribute để tạo segment chính xác — target đúng người, đúng thời điểm, đúng hành vi.</p>
+
+    <div class="attr-grid">
+      <div class="attr-card partial">
+        <div class="attr-badge partial-badge"><span class="live-dot"></span> PARTIAL – ĐÃ LIVE</div>
+        <h3>Target theo con số</h3>
+        <p class="subtitle">Lọc user theo một chỉ số cụ thể trong khoảng thời gian — số giao dịch, tổng tiền tổng hợp và cho phép BU đặt điều kiện range.</p>
+        <ul class="use-cases">
+          <li>"Ai giao dịch từ 5–20 lần tháng này?"</li>
+          <li>"Merchant nào có MAU 10–50 trong Q1?"</li>
+          <li>"User nào login &gt;10 lần trong 90 ngày?"</li>
+        </ul>
+      </div>
+      <div class="attr-card tag">
+        <div class="attr-badge tag-badge">⚡ TAG – COMING &lt;20/5/2026</div>
+        <h3>Target theo nhóm / trạng thái</h3>
+        <p class="subtitle">Lọc user theo một danh mục hoặc trạng thái cụ thể — tier loyalty, loại ngân hàng đã liên kết, KYC status, platform đã dùng. BU hệ thống lấy tag gần nhất hoặc tag trong khoảng thời gian.</p>
+        <ul class="use-cases">
+          <li>"Ai đang ở tier Gold?"</li>
+          <li>"User đã liên kết Vietcombank?"</li>
+          <li>"Ai có KYC status = Verified?"</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <span class="tip-icon">💡</span>
+      <span><strong>Cách phân biệt nhanh:</strong> BU hỏi <em>"bao nhiêu lần / bao nhiêu tiền"</em> → chọn <strong>Partial</strong>. BU hỏi <em>"là gì / thuộc nhóm nào"</em> → chọn <strong>Tag</strong>.</span>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- BENEFITS -->
+  <div class="section">
+    <div class="section-tag teal">Tại sao nên dùng</div>
+    <h2>3 lợi ích cốt lõi cho BU & DA</h2>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon purple-bg">🎯</div>
+        <h3>Target nhóm user chính xác</h3>
+        <p>Segment theo hành vi thực tế — số giao dịch, mức chi tiêu, tần suất login — thay vì dùng nhóm tĩnh.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon amber-bg">⚡</div>
+        <h3>Activate nhanh trong campaign</h3>
+        <p>Attribute được duyệt xong là BU có thể dùng ngay trong Journey hoặc Promotion — không cần đợi thêm.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon teal-bg">🔄</div>
+        <h3>Data tự động refresh</h3>
+        <p>Segment luôn cập nhật theo lịch DA config — BU không cần can thiệp mỗi khi muốn làm tại campaign.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PROCESS FLOW -->
+  <div class="section">
+    <div class="section-tag">SLA & Quy trình</div>
+    <h2>Quy trình xử lý Partial Use Case</h2>
+    <p class="intro-text" style="margin-bottom: 24px;">Partial use case đi được tự động hoàn toàn — từ lúc duyệt đến khi BU dùng được chỉ mất dưới 6 tiếng.</p>
+    <div class="flow-container">
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="step-circle manual">1</div>
+          <div class="step-label"><strong>DA tạo</strong>SQL & validate</div>
+        </div>
+        <div class="flow-step">
+          <div class="step-circle manual">2</div>
+          <div class="step-label"><strong>Submit</strong>request</div>
+        </div>
+        <div class="flow-step">
+          <div class="step-circle manual">3</div>
+          <div class="step-label"><strong>Admin</strong>duyệt</div>
+        </div>
+        <div class="flow-step auto">
+          <div class="step-circle automated">4</div>
+          <div class="step-label"><strong>Auto sync</strong>tự động</div>
+        </div>
+        <div class="flow-step auto">
+          <div class="step-circle automated">5</div>
+          <div class="step-label"><strong>Auto SQL</strong>run</div>
+        </div>
+        <div class="flow-step auto">
+          <div class="step-circle automated">6</div>
+          <div class="step-label"><strong>→ Go live</strong>tự động</div>
+        </div>
+        <div class="flow-step">
+          <div class="step-circle success">7</div>
+          <div class="step-label"><strong>BU activate</strong>campaign</div>
+        </div>
+      </div>
+      <div class="auto-note">
+        <span class="note-icon">🤖</span>
+        <span><strong>Bước 4–6 hoàn toàn tự động</strong> với Partial Use Case — không cần thêm bất kỳ action nào từ DA hay Admin sau khi duyệt.</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- BEFORE/AFTER -->
+  <div class="section">
+    <div class="section-tag coral">Thay đổi vận hành</div>
+    <h2>Auto-onboard giúp cải thiện gì?</h2>
+    <p class="intro-text" style="margin-bottom: 24px;">Áp dụng với Partial Use Cases. Tag use cases vẫn đang theo quy trình thủ công.</p>
+    <div class="ba-grid">
+      <div class="ba-card">
+        <div class="ba-header">
+          <div class="ba-icon sync">⚙️</div>
+          <h3>Sync sau khi duyệt</h3>
+        </div>
+        <div class="ba-body">
+          <div class="ba-row">
+            <div class="ba-label before-label"><span class="ba-dot"></span> Trước</div>
+            <div class="ba-text before">Segment Admin phải trigger thủ công sau mỗi lần approve. Dễ bị delay vài giờ.</div>
+          </div>
+          <div class="ba-arrow">↓</div>
+          <div class="ba-row">
+            <div class="ba-label after-label"><span class="ba-dot"></span> Bây giờ</div>
+            <div class="ba-text after">Hệ thống tự trigger ngay khi SQL được duyệt. Zero bước thủ công. Ít dependency vận hành. Đăng tin cậy hơn.</div>
+          </div>
+        </div>
+      </div>
+      <div class="ba-card">
+        <div class="ba-header">
+          <div class="ba-icon time">⏱️</div>
+          <h3>Time to Live (TTL)</h3>
+        </div>
+        <div class="ba-body">
+          <div class="ba-row">
+            <div class="ba-label before-label"><span class="ba-dot"></span> Trước</div>
+            <div class="ba-text before">~2 ngày từ khi duyệt. BU phải chờ đến ngày hôm sau mới được dùng.</div>
+          </div>
+          <div class="ba-arrow">↓</div>
+          <div class="ba-row">
+            <div class="ba-label after-label"><span class="ba-dot"></span> Bây giờ</div>
+            <div class="ba-text after">&lt;6 tiếng từ khi duyệt. BU activate campaign ngay trong ngày. Campaign readiness nhanh hơn đáng kể.</div>
+          </div>
+        </div>
+      </div>
+      <div class="ba-card">
+        <div class="ba-header">
+          <div class="ba-icon data">🗄️</div>
+          <h3>Chuẩn bị data table</h3>
+        </div>
+        <div class="ba-body">
+          <div class="ba-row">
+            <div class="ba-label before-label"><span class="ba-dot"></span> Trước</div>
+            <div class="ba-text before">DA chuẩn bị và maintain table thủ công. Tốn thời gian, dễ nhầm lẫn.</div>
+          </div>
+          <div class="ba-arrow">↓</div>
+          <div class="ba-row">
+            <div class="ba-label after-label"><span class="ba-dot"></span> Bây giờ</div>
+            <div class="ba-text after">Hệ thống tự gen SQL trên Athena và chuẩn bị data table. Ít handoff gap, kiểm soát query chất lượng hơn.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SLA COMPARE -->
+  <div class="section">
+    <div class="section-tag">So sánh SLA</div>
+    <h2>Partial Auto-Onboard vs Tag Manual</h2>
+    <div class="sla-grid">
+      <div class="sla-card featured">
+        <div class="sla-card-header">
+          <h3>Partial – Auto-Onboard</h3>
+          <span class="sla-badge live">● Live</span>
+        </div>
+        <div class="sla-row">
+          <div class="sla-row-icon">⏱</div>
+          <div>
+            <div class="sla-row-label">Time to live sau duyệt</div>
+            <div class="sla-row-value highlight">&lt; 6 giờ</div>
+          </div>
+        </div>
+        <div class="sla-row">
+          <div class="sla-row-icon">👤</div>
+          <div>
+            <div class="sla-row-label">Segment Admin review</div>
+            <div class="sla-row-value">Không cần sau duyệt</div>
+          </div>
+        </div>
+        <div class="sla-row">
+          <div class="sla-row-icon">🚀</div>
+          <div>
+            <div class="sla-row-label">BU sử dụng</div>
+            <div class="sla-row-value highlight">Activate ngay trong ngày duyệt</div>
+          </div>
+        </div>
+      </div>
+      <div class="sla-card plain">
+        <div class="sla-card-header">
+          <h3>Tag – Manual (hiện tại)</h3>
+          <span class="sla-badge manual">Thủ công</span>
+        </div>
+        <div class="sla-row">
+          <div class="sla-row-icon">⏱</div>
+          <div>
+            <div class="sla-row-label">Time to live sau duyệt</div>
+            <div class="sla-row-value warn">~2 ngày</div>
+          </div>
+        </div>
+        <div class="sla-row">
+          <div class="sla-row-icon">👤</div>
+          <div>
+            <div class="sla-row-label">Segment Admin review</div>
+            <div class="sla-row-value">Thứ Ba & Thứ Năm hàng tuần</div>
+          </div>
+        </div>
+        <div class="sla-row">
+          <div class="sla-row-icon">🔜</div>
+          <div>
+            <div class="sla-row-label">Coming soon</div>
+            <div class="sla-row-value">Auto-Onboard v2 sẽ về &lt;6h</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ROADMAP -->
+  <div class="section">
+    <div class="section-tag amber">Roadmap</div>
+    <h2>Kế hoạch triển khai</h2>
+    <p class="intro-text" style="margin-bottom: 28px;">Auto Onboard triển khai theo 3 giai đoạn — bắt đầu từ Partial, mở rộng sang Tag, rồi đến data quality toàn diện.</p>
+    <div class="roadmap">
+      <div class="roadmap-item">
+        <div class="rm-icon-wrap">
+          <div class="rm-icon done">✓</div>
+          <div class="rm-line"></div>
+        </div>
+        <div class="rm-content active-phase">
+          <div class="rm-phase-label green">V1 – Partial Use Cases <span class="phase-tag released">Released 5 May 2026</span></div>
+          <h3>Auto-Onboard cho Partial</h3>
+          <p>Auto sync khi duyệt. TTL &lt;6h. Auto SQL run. Data prep. Phụ thuộc vào <code>PARTIAL_VALUE_BY_TAG</code> và <code>AGGREGATION_WITHIN_DATE_RANGE</code>.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">PARTIAL_VALUE_BY_TAG</span>
+            <span class="tech-tag">AGGREGATION_WITHIN_DATE_RANGE</span>
+          </div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="rm-icon-wrap">
+          <div class="rm-icon upcoming">2</div>
+          <div class="rm-line"></div>
+        </div>
+        <div class="rm-content next-phase">
+          <div class="rm-phase-label purple">V2 – Tag Use Cases <span class="phase-tag planned">Planned 20 May 2026</span></div>
+          <h3>Auto-Onboard cho Tag</h3>
+          <p>Mở rộng sang <code>MOST_RECENT</code> và <code>MOST_RECENT_WITHIN_DATE_RANGE</code>, rồi cho tất cả tag use cases.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">MOST_RECENT</span>
+            <span class="tech-tag">MOST_RECENT_WITHIN_DATE_RANGE</span>
+          </div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="rm-icon-wrap">
+          <div class="rm-icon future">3</div>
+        </div>
+        <div class="rm-content">
+          <div class="rm-phase-label gray">V3 – Data Quality Controls <span class="phase-tag discuss">Discussing</span></div>
+          <h3>Kiểm soát chất lượng dữ liệu</h3>
+          <p>Validation surfacing, freshness alerting, anomaly detection end-to-end — đảm bảo data luôn đúng và cập nhật.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-box">
+    <h2>Sẵn sàng activate ngay hôm nay?</h2>
+    <p>Partial Use Case đã sẵn sàng — bạn chỉ cần submit request và hệ thống tự xử lý phần còn lại.</p>
+    <div class="cta-steps">
+      <div class="cta-step">
+        <div class="cta-step-num">Bước 1</div>
+        <div class="cta-step-text">DA tạo SQL &amp; submit request</div>
+      </div>
+      <div class="cta-step">
+        <div class="cta-step-num">Bước 2</div>
+        <div class="cta-step-text">Admin duyệt use case</div>
+      </div>
+      <div class="cta-step">
+        <div class="cta-step-num">Bước 3</div>
+        <div class="cta-step-text">BU activate campaign trong &lt;6h</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
