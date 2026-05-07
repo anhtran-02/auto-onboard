@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attribute Cheatsheet — Vishnu CDP / Athena</title>
+<style>
+  :root {
+    --primary: #7C3AED;
+    --primary-light: #EDE9FE;
+    --primary-mid: #A78BFA;
+    --accent: #F59E0B;
+    --accent-light: #FEF3C7;
+    --green: #10B981;
+    --green-light: #D1FAE5;
+    --red: #EF4444;
+    --red-light: #FEE2E2;
+    --blue: #3B82F6;
+    --blue-light: #DBEAFE;
+    --gray: #6B7280;
+    --gray-light: #F9FAFB;
+    --gray-border: #E5E7EB;
+    --dark: #1F2937;
+    --text: #374151;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #F3F4F6;
+    color: var(--text);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  /* ── LAYOUT ── */
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 16px 40px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, #5B21B6 0%, #7C3AED 50%, #6D28D9 100%);
+    border-radius: 16px;
+    padding: 24px 32px;
+    color: white;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .header-icon {
+    font-size: 48px;
+    flex-shrink: 0;
+  }
+  .header-title {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+  .header-sub {
+    font-size: 13px;
+    opacity: 0.85;
+    margin-top: 4px;
+  }
+  .header-badge-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .badge {
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  /* ── GRID ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 10px; }
+
+  /* ── CARD ── */
+  .card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px 18px;
+    border: 1px solid var(--gray-border);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .card-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--primary);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .card-title .icon { font-size: 14px; }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray);
+    margin: 20px 0 8px;
+  }
+
+  /* ── DEFINITION BOX ── */
+  .def-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--gray-border);
+  }
+  .def-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .def-label {
+    background: var(--primary-light);
+    color: var(--primary);
+    font-weight: 700;
+    border-radius: 6px;
+    padding: 2px 10px;
+    font-size: 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .def-text { color: var(--text); font-size: 12.5px; }
+
+  /* ── USE CASE TILES ── */
+  .uc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .uc-tile {
+    border-radius: 10px;
+    padding: 12px 14px;
+    border: 1.5px solid transparent;
+  }
+  .uc-title { font-weight: 700; font-size: 12.5px; margin-bottom: 3px; }
+  .uc-example { font-size: 11.5px; opacity: 0.8; }
+
+  .uc-journey  { background: #EDE9FE; border-color: #C4B5FD; }
+  .uc-journey .uc-title  { color: #5B21B6; }
+  .uc-promo    { background: #FEF3C7; border-color: #FCD34D; }
+  .uc-promo .uc-title    { color: #92400E; }
+  .uc-widget   { background: #DBEAFE; border-color: #93C5FD; }
+  .uc-widget .uc-title   { color: #1E40AF; }
+  .uc-ads      { background: #FCE7F3; border-color: #F9A8D4; }
+  .uc-ads .uc-title      { color: #831843; }
+  .uc-chat     { background: #D1FAE5; border-color: #6EE7B7; }
+  .uc-chat .uc-title     { color: #065F46; }
+  .uc-exclude  { background: #FEE2E2; border-color: #FCA5A5; }
+  .uc-exclude .uc-title  { color: #7F1D1D; }
+
+  /* ── TYPE TABLE ── */
+  .type-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .type-table th {
+    background: var(--primary);
+    color: white;
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 600;
+  }
+  .type-table th:first-child { border-radius: 8px 0 0 0; }
+  .type-table th:last-child  { border-radius: 0 8px 0 0; }
+  .type-table td { padding: 8px 12px; border-bottom: 1px solid var(--gray-border); vertical-align: top; }
+  .type-table tr:last-child td { border-bottom: none; }
+  .type-table tr:nth-child(even) td { background: var(--gray-light); }
+  .chip {
+    display: inline-block;
+    background: var(--primary-light);
+    color: var(--primary);
+    border-radius: 4px;
+    padding: 1px 7px;
+    font-size: 10.5px;
+    font-weight: 700;
+    font-family: monospace;
+  }
+  .chip-green {
+    background: var(--green-light);
+    color: #065F46;
+  }
+  .chip-amber {
+    background: var(--accent-light);
+    color: #78350F;
+  }
+
+  /* ── FLOW ── */
+  .flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    overflow-x: auto;
+  }
+  .flow-step {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+  }
+  .flow-step:not(:last-child)::after {
+    content: '▶';
+    position: absolute;
+    right: -11px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-mid);
+    font-size: 16px;
+    z-index: 1;
+  }
+  .flow-box {
+    background: var(--primary-light);
+    border: 1.5px solid var(--primary-mid);
+    border-radius: 10px;
+    padding: 10px 12px;
+    text-align: center;
+    margin: 0 14px 0 0;
+    height: 100%;
+  }
+  .flow-step:last-child .flow-box { margin-right: 0; }
+  .flow-num {
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    width: 22px; height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+  .flow-label { font-weight: 700; font-size: 11.5px; color: var(--primary); margin-bottom: 2px; }
+  .flow-who {
+    display: inline-block;
+    background: white;
+    border: 1px solid var(--primary-mid);
+    border-radius: 10px;
+    padding: 1px 8px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 2px;
+  }
+  .flow-desc { font-size: 10.5px; color: var(--text); }
+
+  /* ── SLA ── */
+  .sla-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+  }
+  .sla-row:last-child { margin-bottom: 0; }
+  .sla-type { font-weight: 700; font-size: 12px; flex: 1.2; }
+  .sla-chip {
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .sla-time { font-weight: 800; font-size: 15px; color: var(--dark); flex-shrink: 0; }
+  .sla-auto { background: var(--green-light); }
+  .sla-auto .sla-chip { background: var(--green); color: white; }
+  .sla-manual { background: var(--accent-light); }
+  .sla-manual .sla-chip { background: var(--accent); color: #78350F; }
+  .sla-rt { background: var(--blue-light); }
+  .sla-rt .sla-chip { background: var(--blue); color: white; }
+  .sla-note {
+    background: #FFF7ED;
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 11.5px;
+    color: #78350F;
+    margin-top: 8px;
+  }
+
+  /* ── ROLES ── */
+  .role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .role-card { border-radius: 10px; padding: 12px 14px; }
+  .role-bu { background: #EDE9FE; border: 1.5px solid #C4B5FD; }
+  .role-da { background: #D1FAE5; border: 1.5px solid #6EE7B7; }
+  .role-title { font-weight: 800; font-size: 13px; margin-bottom: 8px; }
+  .role-bu .role-title { color: #5B21B6; }
+  .role-da .role-title { color: #065F46; }
+  .role-item { display: flex; gap: 6px; font-size: 12px; margin-bottom: 4px; align-items: flex-start; }
+  .role-item:last-child { margin-bottom: 0; }
+  .role-dot { flex-shrink: 0; margin-top: 3px; }
+
+  /* ── DA QUICK CONFIG ── */
+  .formula-box {
+    background: var(--dark);
+    color: #E5E7EB;
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-family: monospace;
+    font-size: 12.5px;
+    line-height: 1.8;
+    margin-bottom: 12px;
+  }
+  .formula-box .highlight { color: #A78BFA; font-weight: 700; }
+  .formula-box .val { color: #6EE7B7; }
+
+  .config-row {
+    display: flex;
+    gap: 8px;
+    font-size: 11.5px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--gray-border);
+    align-items: flex-start;
+  }
+  .config-row:last-child { border-bottom: none; }
+  .config-q { font-weight: 700; color: var(--gray); flex: 1.2; }
+  .config-a { flex: 2; }
+  .config-arrow { color: var(--primary-mid); flex-shrink: 0; }
+
+  /* ── MISTAKES ── */
+  .mistake-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 7px 10px;
+    background: var(--red-light);
+    border-radius: 8px;
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+  .mistake-item:last-child { margin-bottom: 0; }
+  .mistake-x { color: var(--red); font-weight: 800; flex-shrink: 0; }
+
+  /* ── CONTACTS ── */
+  .contact-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+  .contact-item {
+    background: var(--gray-light);
+    border: 1px solid var(--gray-border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+  .contact-label { font-weight: 600; color: var(--gray); font-size: 11px; margin-bottom: 2px; }
+  .contact-val { font-weight: 700; color: var(--primary); }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    color: var(--gray);
+    font-size: 11px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--gray-border);
+  }
+
+  /* ── PRINT / SCREEN ── */
+  @media print {
+    body { background: white; }
+    .page { padding: 10px; }
+    .card { box-shadow: none; }
+  }
+
+  @media (max-width: 768px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .uc-grid { grid-template-columns: 1fr 1fr; }
+    .flow { flex-direction: column; }
+    .flow-step::after { display: none; }
+    .flow-box { margin: 0 0 8px; }
+    .contact-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══ HEADER ══ -->
+  <div class="header">
+    <div class="header-icon">🏷️</div>
+    <div>
+      <div class="header-title">Attribute Cheatsheet — Vishnu CDP / Athena</div>
+      <div class="header-sub">Hướng dẫn nhanh để BU/DA onboard & sử dụng Attribute Platform</div>
+      <div class="header-badge-row">
+        <span class="badge">👤 BU / PO</span>
+        <span class="badge">📊 DA</span>
+        <span class="badge">✅ Updated May 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ ROW 1: What is Attribute + Use Cases ══ -->
+  <div class="grid-2" style="margin-bottom:14px;">
+
+    <!-- What is Attribute -->
+    <div class="card">
+      <div class="card-title"><span class="icon">💡</span>Attribute là gì?</div>
+      <div class="def-row">
+        <span class="def-label">Attribute</span>
+        <span class="def-text">"Nhãn" hoặc chỉ số đã tính sẵn, gắn lên mỗi <strong>user / merchant</strong> dựa trên hành vi hoặc dữ liệu.</span>
+      </div>
+      <div class="def-row">
+        <span class="def-label">Attribute</span>
+        <span class="def-text">= <strong>Nguyên liệu</strong> (1 chiều dữ liệu đã xử lý)<br>
+          <em>VD: tổng chi 7 ngày = 850K, tier = Gold, platform = iOS</em></span>
+      </div>
+      <div class="def-row">
+        <span class="def-label">Segment</span>
+        <span class="def-text">= <strong>Kết quả lọc</strong> từ 1 hoặc nhiều attribute<br>
+          <em>VD: user có tổng chi 7 ngày &gt; 500K và tier = Gold</em></span>
+      </div>
+      <div class="def-row" style="border-bottom:none; padding-bottom:0;">
+        <span class="def-label" style="background:#D1FAE5;color:#065F46;">≠ BQ raw</span>
+        <span class="def-text">Attribute đã được tính &amp; đồng bộ vào Athena — <strong>BU dùng ngay</strong>, không cần query BQ.</span>
+      </div>
+    </div>
+
+    <!-- Use Cases -->
+    <div class="card">
+      <div class="card-title"><span class="icon">🎯</span>6 Use Cases chính</div>
+      <div class="uc-grid">
+        <div class="uc-tile uc-journey">
+          <div class="uc-title">🔄 Journey / Automation</div>
+          <div class="uc-example">Trigger push nếu user không login 30 ngày</div>
+        </div>
+        <div class="uc-tile uc-promo">
+          <div class="uc-title">🎁 Promotion</div>
+          <div class="uc-example">Cashback cho user chi 100K–500K</div>
+        </div>
+        <div class="uc-tile uc-widget">
+          <div class="uc-title">🖼️ Widget / Banner</div>
+          <div class="uc-example">Banner tính năng mới → user chưa dùng</div>
+        </div>
+        <div class="uc-tile uc-ads">
+          <div class="uc-title">📣 Advertising</div>
+          <div class="uc-example">Retarget user xem nhưng chưa mua 14 ngày</div>
+        </div>
+        <div class="uc-tile uc-chat">
+          <div class="uc-title">💬 Chat / CS</div>
+          <div class="uc-example">User Gold → hàng ưu tiên<br><em style="font-size:10px;">Contact hanh.tran3</em></div>
+        </div>
+        <div class="uc-tile uc-exclude">
+          <div class="uc-title">🚫 Exclusion</div>
+          <div class="uc-example">Loại user đã mua trong 7 ngày gần nhất</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ ROW 2: Attribute Types ══ -->
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-title"><span class="icon">⚙️</span>3 loại Attribute — Chọn theo câu hỏi của BU</div>
+    <table class="type-table">
+      <thead>
+        <tr>
+          <th>BU muốn biết…</th>
+          <th>Loại</th>
+          <th>Tên kỹ thuật</th>
+          <th>SLA (sau approve)</th>
+          <th>Ví dụ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Trạng thái / nhãn <strong>mới nhất</strong> của user</td>
+          <td>Trạng thái hiện tại</td>
+          <td><span class="chip">MOST_RECENT</span></td>
+          <td><span class="chip chip-amber">~2 ngày</span> <span style="font-size:10px;color:#6B7280;">(Manual · Auto Q2/2026)</span></td>
+          <td>Tier, KYC level, app version</td>
+        </tr>
+        <tr>
+          <td>Trạng thái mới nhất <strong>trong N ngày gần đây</strong></td>
+          <td>Trạng thái trong khoảng</td>
+          <td><span class="chip">MOST_RECENT_WDR</span></td>
+          <td><span class="chip chip-amber">~2 ngày</span> <span style="font-size:10px;color:#6B7280;">(Manual · Auto Q2/2026)</span></td>
+          <td>Platform dùng 30 ngày, quà nhận 14 ngày</td>
+        </tr>
+        <tr>
+          <td><strong>Tổng số / tổng tiền / số ngày</strong> trong khoảng</td>
+          <td>Chỉ số tổng hợp</td>
+          <td><span class="chip">AGGREGATION_WDR</span></td>
+          <td><span class="chip chip-green">✅ &lt; 6 giờ</span> <span style="font-size:10px;color:#6B7280;">(Auto-onboard)</span></td>
+          <td>Tổng chi 7 ngày, số GD tháng, số ngày login 90 ngày</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══ ROW 3: Flow + Roles ══ -->
+  <div class="grid-2" style="margin-bottom:14px;">
+
+    <!-- Process Flow -->
+    <div class="card">
+      <div class="card-title"><span class="icon">🔁</span>Quy trình onboard end-to-end</div>
+      <div class="flow" style="gap:6px;">
+        <div class="flow-step">
+          <div class="flow-box">
+            <div class="flow-num">1</div>
+            <div class="flow-who">BU/PO</div>
+            <div class="flow-label">Xác định nhu cầu</div>
+            <div class="flow-desc">Lọc ai? Tiêu chí gì? Khoảng thời gian? Kênh nào?</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-box">
+            <div class="flow-num">2</div>
+            <div class="flow-who">DA</div>
+            <div class="flow-label">Thiết kế &amp; chuẩn bị data</div>
+            <div class="flow-desc">Chọn loại attribute, viết SQL/pipeline BQ, validate</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-box">
+            <div class="flow-num">3</div>
+            <div class="flow-who">DA</div>
+            <div class="flow-label">Submit Athena</div>
+            <div class="flow-desc">Điền đủ config, đính kèm SQL Reference</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-box">
+            <div class="flow-num">4</div>
+            <div class="flow-who">Admin</div>
+            <div class="flow-label">Approve</div>
+            <div class="flow-desc">Thứ 3 &amp; Thứ 5 hàng tuần</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-box">
+            <div class="flow-num">5</div>
+            <div class="flow-who">BU/PO</div>
+            <div class="flow-label">Kích hoạt</div>
+            <div class="flow-desc">Build segment → dùng trong campaign/journey/promo</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;">
+        <div class="card-title" style="margin-bottom:8px;"><span class="icon">⏱️</span>SLA từ approve → live</div>
+        <div class="sla-row sla-auto">
+          <div class="sla-type">Partial <span class="chip" style="font-size:10px;">AGGREGATION_WDR</span></div>
+          <div class="sla-chip">🤖 Auto-onboard</div>
+          <div class="sla-time">&lt; 6 giờ</div>
+        </div>
+        <div class="sla-row sla-manual">
+          <div class="sla-type">Tag <span class="chip" style="font-size:10px;">MOST_RECENT</span> / <span class="chip" style="font-size:10px;">MOST_RECENT_WDR</span></div>
+          <div class="sla-chip">👤 Manual sync</div>
+          <div class="sla-time">~2 ngày</div>
+        </div>
+        <div class="sla-row sla-rt">
+          <div class="sla-type">Streaming <span style="font-size:11px;color:#6B7280;">(BE setup)</span></div>
+          <div class="sla-chip">⚡ Realtime</div>
+          <div class="sla-time">Live</div>
+        </div>
+        <div class="sla-note">⚠️ Campaign launch thứ 2? → Submit &amp; approve <strong>trước thứ 5 tuần trước</strong> (áp dụng cho Tag, SLA ~2 ngày)</div>
+      </div>
+    </div>
+
+    <!-- Roles + DA Config -->
+    <div style="display:flex; flex-direction:column; gap:14px;">
+
+      <!-- Roles -->
+      <div class="card">
+        <div class="card-title"><span class="icon">👥</span>Ai làm gì?</div>
+        <div class="role-grid">
+          <div class="role-card role-bu">
+            <div class="role-title">👤 BU / PO</div>
+            <div class="role-item"><span class="role-dot">✅</span> Xác định use case &amp; tiêu chí lọc</div>
+            <div class="role-item"><span class="role-dot">✅</span> Tư vấn DA về yêu cầu dữ liệu</div>
+            <div class="role-item"><span class="role-dot">✅</span> Kích hoạt attribute trong campaign</div>
+            <div class="role-item"><span class="role-dot">✅</span> Build segment trên Athena</div>
+          </div>
+          <div class="role-card role-da">
+            <div class="role-title">📊 DA</div>
+            <div class="role-item"><span class="role-dot">✅</span> Thiết kế loại attribute phù hợp</div>
+            <div class="role-item"><span class="role-dot">✅</span> Chuẩn bị BQ table + pipeline</div>
+            <div class="role-item"><span class="role-dot">✅</span> Pre-check &amp; validate trước submit</div>
+            <div class="role-item"><span class="role-dot">✅</span> Submit trên Athena UI</div>
+            <div class="role-item"><span class="role-dot">✅</span> Xử lý lỗi data / segment sai</div>
+          </div>
+        </div>
+        <div style="background:#FFF7ED;border-left:3px solid var(--accent);border-radius:6px;padding:7px 10px;font-size:11.5px;color:#78350F;margin-top:10px;">
+          ⚠️ Segment sai ≠ luôn do hệ thống → trace: <strong>BU demand → DA logic → DA data → Sync</strong>
+        </div>
+      </div>
+
+      <!-- Common Mistakes -->
+      <div class="card">
+        <div class="card-title"><span class="icon">❌</span>Lỗi hay gặp (DA)</div>
+        <div class="mistake-item"><span class="mistake-x">✗</span> Dùng <span class="chip" style="margin:0 3px;">MOST_RECENT</span> cho chỉ số tổng hợp (tổng chi, số GD)</div>
+        <div class="mistake-item"><span class="mistake-x">✗</span> Dùng <span class="chip" style="margin:0 3px;">TAG_ID</span> cho threshold số (spent &gt; X VND)</div>
+        <div class="mistake-item"><span class="mistake-x">✗</span> <code>attributeNameId</code> trong BQ không khớp với Attribute ID trên UI</div>
+        <div class="mistake-item"><span class="mistake-x">✗</span> Dùng <strong>Multiple Tag</strong> khi user chỉ giữ 1 tag tại một thời điểm</div>
+        <div class="mistake-item" style="background:#FEF3C7;"><span style="color:var(--accent);font-weight:800;">⚠</span> Timestamp dùng giờ/phút → nên dùng <code>TIMESTAMP_TRUNC(..., DAY)</code></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ ROW 4: DA Config Wizard + Contacts ══ -->
+  <div class="grid-2" style="margin-bottom:14px;">
+
+    <!-- DA Config Wizard -->
+    <div class="card">
+      <div class="card-title"><span class="icon">🧪</span>DA Config — 5 câu hỏi xác định cấu hình</div>
+      <div class="formula-box">
+        Attribute = <span class="highlight">WHO</span> <span style="color:#9CA3AF">+</span>
+        <span class="highlight">WHAT</span> <span style="color:#9CA3AF">+</span>
+        <span class="highlight">HOW (aggregation)</span> <span style="color:#9CA3AF">+</span>
+        <span class="highlight">FILTER TYPE</span> <span style="color:#9CA3AF">+</span>
+        <span class="highlight">UPDATE WHEN</span>
+      </div>
+      <div class="config-row">
+        <div class="config-q">① Target ai?</div>
+        <div class="config-arrow">→</div>
+        <div class="config-a"><span class="chip">User</span> <span class="chip">Merchant</span> <span class="chip">Merchant Store Code</span></div>
+      </div>
+      <div class="config-row">
+        <div class="config-q">② Data đến từ đâu?</div>
+        <div class="config-arrow">→</div>
+        <div class="config-a"><span class="chip">Batch</span> (BQ/Airflow, DA setup) &nbsp;|&nbsp; <span class="chip">Streaming</span> (realtime, BE setup)</div>
+      </div>
+      <div class="config-row">
+        <div class="config-q">③ Aggregation logic?</div>
+        <div class="config-arrow">→</div>
+        <div class="config-a">
+          Nhãn mới nhất → <span class="chip">MOST_RECENT</span><br>
+          Nhãn mới nhất trong N ngày → <span class="chip">MOST_RECENT_WDR</span><br>
+          Tổng/đếm/số ngày → <span class="chip">AGGREGATION_WDR</span>
+        </div>
+      </div>
+      <div class="config-row">
+        <div class="config-q">④ BU filter theo gì?</div>
+        <div class="config-arrow">→</div>
+        <div class="config-a">
+          Nhãn/danh mục → <span class="chip">TAG_ID</span><br>
+          Ngưỡng số → <span class="chip">PARTIAL_VALUE</span><br>
+          Nhãn + ngưỡng số → <span class="chip">PARTIAL_VALUE_BY_TAG</span>
+        </div>
+      </div>
+      <div class="config-row">
+        <div class="config-q">⑤ User có nhiều tag cùng lúc?</div>
+        <div class="config-arrow">→</div>
+        <div class="config-a">
+          Không (tag mới thay tag cũ) → <span class="chip">Single Tag</span> (tier, KYC)<br>
+          Có (tích lũy nhiều tag) → <span class="chip">Multiple Tag</span> (banks used, gifts)
+        </div>
+      </div>
+
+      <div style="margin-top:10px;">
+        <div style="font-size:11px;font-weight:700;color:var(--gray);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;">Fast-path scenarios</div>
+        <table class="type-table" style="font-size:11px;">
+          <thead><tr><th>Scenario</th><th>Aggregation</th><th>Filter</th><th>Tag Type</th></tr></thead>
+          <tbody>
+            <tr><td>Tier / status label hiện tại</td><td><span class="chip" style="font-size:10px;">MOST_RECENT</span></td><td><span class="chip" style="font-size:10px;">TAG_ID</span></td><td>Single</td></tr>
+            <tr><td>Tổng chi N ngày gần đây</td><td><span class="chip" style="font-size:10px;">AGGREGATION_WDR</span></td><td><span class="chip" style="font-size:10px;">PARTIAL_BY_TAG</span></td><td>Single</td></tr>
+            <tr><td>Ngân hàng GD trong N ngày</td><td><span class="chip" style="font-size:10px;">AGGREGATION_WDR</span></td><td><span class="chip" style="font-size:10px;">TAG_ID</span></td><td>Multiple</td></tr>
+            <tr><td>User chưa GD / inactive &gt;1 năm</td><td><span class="chip" style="font-size:10px;">MOST_RECENT</span> + snapshot</td><td><span class="chip" style="font-size:10px;">TAG_ID</span></td><td>Single</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Contacts + Scope -->
+    <div style="display:flex;flex-direction:column;gap:14px;">
+
+      <div class="card">
+        <div class="card-title"><span class="icon">📐</span>DA Pre-Submit Checklist</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:flex;gap:8px;align-items:flex-start;font-size:12px;padding:6px 0;border-bottom:1px solid var(--gray-border);">
+            <span style="color:var(--green);font-weight:800;flex-shrink:0;">☑</span>
+            <span>Column names đúng: <code>agentId, attributeGroup, attributeNameId, timestamp, tagsAdd</code></span>
+          </div>
+          <div style="display:flex;gap:8px;align-items:flex-start;font-size:12px;padding:6px 0;border-bottom:1px solid var(--gray-border);">
+            <span style="color:var(--green);font-weight:800;flex-shrink:0;">☑</span>
+            <span>Timestamp là <strong>Unix milliseconds (13 chữ số)</strong> + compact theo ngày</span>
+          </div>
+          <div style="display:flex;gap:8px;align-items:flex-start;font-size:12px;padding:6px 0;border-bottom:1px solid var(--gray-border);">
+            <span style="color:var(--green);font-weight:800;flex-shrink:0;">☑</span>
+            <span><code>attributeNameId</code> trong BQ <strong>khớp chính xác</strong> với Attribute ID trên Athena (case-sensitive)</span>
+          </div>
+          <div style="display:flex;gap:8px;align-items:flex-start;font-size:12px;padding:6px 0;border-bottom:1px solid var(--gray-border);">
+            <span style="color:var(--green);font-weight:800;flex-shrink:0;">☑</span>
+            <span><code>DISTINCT date ≤ 180</code>; không có nhiều timestamp khác nhau trong cùng 1 ngày</span>
+          </div>
+          <div style="display:flex;gap:8px;align-items:flex-start;font-size:12px;padding:6px 0;">
+            <span style="color:var(--green);font-weight:800;flex-shrink:0;">☑</span>
+            <span>Predefined tags: mọi giá trị <code>tagsAdd</code> đã có trong danh sách Athena</span>
+          </div>
+        </div>
+        <div style="background:#EDE9FE;border-left:3px solid var(--primary);border-radius:6px;padding:7px 10px;font-size:11.5px;color:#5B21B6;margin-top:10px;">
+          ⚡ <strong>180-day limit:</strong> Data &gt; 180 ngày bị bỏ qua. Với lifetime use cases (user chưa GD bao giờ, inactive &gt;1 năm) → dùng <strong>snapshot pattern</strong>: rebuild bảng mỗi ngày với <code>timestamp = hôm qua</code>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon">📞</span>Contacts &amp; Links</div>
+        <div class="contact-grid">
+          <div class="contact-item">
+            <div class="contact-label">🌊 Streaming setup</div>
+            <div class="contact-val">dung.cao1</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">💬 Chat / CS routing</div>
+            <div class="contact-val">hanh.tran3</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">📅 Review window</div>
+            <div class="contact-val">Thứ 3 &amp; Thứ 5</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">🔗 Attribute Management</div>
+            <div class="contact-val" style="color:var(--blue);">Athena UI ↗</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">🔗 Segment Builder</div>
+            <div class="contact-val" style="color:var(--blue);">Athena UI ↗</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">📋 Segment Admin</div>
+            <div class="contact-val">Segment Admin team</div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;">
+          <div style="font-size:11px;font-weight:700;color:var(--gray);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px;">📍 Roadmap</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:flex;align-items:center;gap:10px;font-size:12px;padding:6px 10px;background:var(--accent-light);border-radius:7px;">
+              <span style="font-weight:700;color:#78350F;flex-shrink:0;">Q2/2026</span>
+              <span>Tag Auto-Onboard → <span class="chip" style="font-size:10px;">MOST_RECENT</span> &amp; <span class="chip" style="font-size:10px;">MOST_RECENT_WDR</span> cũng live trong &lt;6 giờ</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:12px;padding:6px 10px;background:var(--blue-light);border-radius:7px;">
+              <span style="font-weight:700;color:#1E40AF;flex-shrink:0;">Sắp tới</span>
+              <span>Data Quality: Validation surfacing, freshness alerting, anomaly detection</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    Attribute Cheatsheet · Vishnu CDP / Athena · Cập nhật tháng 5/2026 · Dành cho BU/PO &amp; DA
+  </div>
+
+</div>
+</body>
+</html>
