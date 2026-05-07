@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auto-Onboard Cheatsheet – Partial Use Cases</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        brand: { 50:'#EEEDFE',100:'#CECBF6',200:'#AFA9EC',400:'#7F77DD',600:'#534AB7',800:'#3C3489',900:'#26215C' },
+        teal:  { 50:'#E1F5EE',100:'#9FE1CB',200:'#5DCAA5',400:'#1D9E75',600:'#0F6E56',800:'#085041' },
+        coral: { 50:'#FAECE7',100:'#F5C4B3',200:'#F0997B',400:'#D85A30',600:'#993C1D' },
+        amber: { 50:'#FAEEDA',100:'#FAC775',200:'#EF9F27',400:'#BA7517' },
+        gray:  { 50:'#F1EFE8',100:'#D3D1C7',200:'#B4B2A9',400:'#888780',600:'#5F5E5A',800:'#444441',900:'#2C2C2A' },
+      },
+      fontFamily: { sans: ['Inter','system-ui','sans-serif'], mono: ['JetBrains Mono','monospace'] },
+    }
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 7mm; }
+  @media print { html { font-size: 9.5px; } .no-print { display:none!important; } * { -webkit-print-color-adjust:exact; print-color-adjust:exact; } }
+  body { font-size: 11px; background: white; }
+  .badge-new  { display:inline-flex;align-items:center;background:#1D9E75;color:white;font-size:9px;font-weight:800;padding:1px 6px;border-radius:4px;letter-spacing:.5px;vertical-align:middle;margin-left:4px; }
+  .badge-soon { display:inline-flex;align-items:center;background:#534AB7;color:white;font-size:9px;font-weight:800;padding:1px 6px;border-radius:4px;letter-spacing:.5px;vertical-align:middle;margin-left:4px; }
+  .step-auto   { background:#534AB7;color:white; }
+  .step-manual { background:#E5E5E3;color:#5F5E5A;border:1.5px solid #D3D1C7; }
+  .step-done   { background:#1D9E75;color:white; }
+  code { font-family:'JetBrains Mono',monospace;font-size:9px;background:#EEEDFE;color:#534AB7;padding:1px 5px;border-radius:3px; }
+  .sec-title { display:flex;align-items:center;font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;margin-bottom:8px;padding-bottom:6px; }
+</style>
+</head>
+<body class="bg-white text-gray-900 font-sans">
+<div class="p-3 bg-white">
+
+  <!-- HERO -->
+  <div class="bg-gradient-to-r from-brand-900 via-brand-600 to-teal-600 rounded-xl p-4 mb-3 flex items-start justify-between">
+    <div>
+      <div class="flex items-center gap-2 mb-1">
+        <span class="text-teal-100 text-xs font-bold tracking-widest uppercase">Create Attribute Platform</span>
+        <span class="badge-new">NEW</span>
+        <span class="text-white/50 text-xs">Released 5 May 2026</span>
+      </div>
+      <h1 class="text-white text-xl font-extrabold leading-tight">Auto-Onboard — Partial Use Cases <span class="text-teal-200">Cheatsheet</span></h1>
+      <p class="text-blue-100 text-xs mt-1 opacity-80">BU/DA quick reference · &lt;6h Time to Live · Zero manual steps after approval</p>
+    </div>
+    <div class="grid grid-cols-4 gap-2 text-center shrink-0 ml-4">
+      <div class="bg-white/10 border border-white/20 rounded-lg px-3 py-2"><div class="text-teal-200 text-base font-extrabold">&lt;6h</div><div class="text-white/60 text-xs">TTL</div></div>
+      <div class="bg-white/10 border border-white/20 rounded-lg px-3 py-2"><div class="text-teal-200 text-base font-extrabold">0</div><div class="text-white/60 text-xs">Manual steps</div></div>
+      <div class="bg-white/10 border border-white/20 rounded-lg px-3 py-2"><div class="text-white text-base font-extrabold">Same Day</div><div class="text-white/60 text-xs">BU Activation</div></div>
+      <div class="bg-white/10 border border-white/20 rounded-lg px-3 py-2"><div class="text-teal-200 text-base font-extrabold">&#8595; Risk</div><div class="text-white/60 text-xs">Human error</div></div>
+    </div>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="mb-3">
+    <div class="sec-title" style="border-bottom:2px solid #7F77DD;">
+      <span style="width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;margin-right:6px;background:#7F77DD;color:white;">1</span>
+      <span style="color:#3C3489;">Gi&#7899;i thi&#7879;u v&#7873; c&#225;c lo&#7841;i Attribute</span>
+    </div>
+    <div class="grid grid-cols-3 gap-3">
+      <div class="bg-brand-50 border border-brand-200 rounded-xl p-3">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="w-2 h-2 rounded-full bg-teal-400 inline-block"></span>
+          <span class="text-brand-800 text-xs font-bold uppercase tracking-wide">Partial</span>
+          <span class="badge-new">LIVE</span>
+        </div>
+        <h3 class="text-brand-900 font-bold text-sm mb-1">Target theo con s&#7889;</h3>
+        <p class="text-gray-600 text-xs mb-2">L&#7885;c user theo ch&#7881; s&#7889; trong kho&#7843;ng th&#7901;i gian. BU &#273;&#7863;t &#273;i&#7873;u ki&#7879;n range.</p>
+        <div class="space-y-1">
+          <div class="bg-white border border-brand-100 rounded px-2 py-1 text-xs text-gray-700 flex gap-2"><span class="text-brand-600 font-bold">›</span>"Ai giao d&#7883;ch 5&#8211;20 l&#7847;n th&#225;ng n&#224;y?"</div>
+          <div class="bg-white border border-brand-100 rounded px-2 py-1 text-xs text-gray-700 flex gap-2"><span class="text-brand-600 font-bold">›</span>"Merchant c&#243; MAU 10&#8211;50 trong Q1?"</div>
+          <div class="bg-white border border-brand-100 rounded px-2 py-1 text-xs text-gray-700 flex gap-2"><span class="text-brand-600 font-bold">›</span>"User login &gt;10 l&#7847;n / 90 ng&#224;y?"</div>
+        </div>
+        <div class="mt-2 pt-2 border-t border-brand-100">
+          <div class="text-gray-500 text-xs mb-1 font-semibold">Functions h&#7895; tr&#7907;</div>
+          <code>PARTIAL_VALUE_BY_TAG</code><br>
+          <code class="mt-1 inline-block">AGGREGATION_WITHIN_DATE_RANGE</code>
+        </div>
+      </div>
+      <div class="bg-teal-50 border border-teal-200 rounded-xl p-3">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-teal-600 text-xs font-bold uppercase tracking-wide">Tag</span>
+          <span class="badge-soon">COMING 20/5</span>
+        </div>
+        <h3 class="text-teal-800 font-bold text-sm mb-1">Target theo nh&#243;m / tr&#7841;ng th&#225;i</h3>
+        <p class="text-gray-600 text-xs mb-2">L&#7885;c theo danh m&#7909;c &#8212; tier loyalty, KYC, ng&#226;n h&#224;ng li&#234;n k&#7871;t, platform.</p>
+        <div class="space-y-1">
+          <div class="bg-white border border-teal-100 rounded px-2 py-1 text-xs text-gray-700 flex gap-2"><span class="text-teal-600 font-bold">›</span>"Ai &#273;ang &#7903; tier Gold?"</div>
+          <div class="bg-white border border-teal-100 rounded px-2 py-1 text-xs text-gray-700 flex gap-2"><span class="text-teal-600 font-bold">›</span>"User &#273;&#227; li&#234;n k&#7871;t Vietcombank?"</div>
+          <div class="bg-white border border-teal-100 rounded px-2 py-1 text-xs text-gray-700 flex gap-2"><span class="text-teal-600 font-bold">›</span>"Ai c&#243; KYC = Verified?"</div>
+        </div>
+        <div class="mt-2 pt-2 border-t border-teal-100">
+          <div class="text-gray-500 text-xs mb-1 font-semibold">Functions h&#7895; tr&#7907; (v2)</div>
+          <code>MOST_RECENT</code><br>
+          <code class="mt-1 inline-block">MOST_RECENT_WITHIN_DATE_RANGE</code>
+        </div>
+      </div>
+      <div class="flex flex-col gap-2">
+        <div class="bg-amber-50 border border-amber-100 rounded-xl p-3 flex-1">
+          <div class="text-amber-500 text-xs font-bold mb-2">&#128161; C&#225;ch ph&#226;n bi&#7879;t nhanh</div>
+          <div class="space-y-2">
+            <div class="bg-white border border-brand-100 rounded p-2"><div class="text-brand-600 font-bold text-xs mb-0.5">Partial</div><div class="text-gray-600 text-xs">"bao nhi&#234;u l&#7847;n / bao nhi&#234;u ti&#7873;n"</div></div>
+            <div class="bg-white border border-teal-100 rounded p-2"><div class="text-teal-600 font-bold text-xs mb-0.5">Tag</div><div class="text-gray-600 text-xs">"l&#224; g&#236; / thu&#7897;c nh&#243;m n&#224;o"</div></div>
+          </div>
+        </div>
+        <div class="bg-brand-50 border border-brand-100 rounded-xl p-3">
+          <div class="text-brand-700 text-xs font-bold mb-1">&#128204; Attribute d&#249;ng &#273;&#7875; l&#224;m g&#236;?</div>
+          <div class="text-gray-600 text-xs leading-relaxed">T&#7841;o segment ch&#237;nh x&#225;c trong campaign &#8212; target &#273;&#250;ng ng&#432;&#7901;i, &#273;&#250;ng th&#7901;i &#273;i&#7875;m, &#273;&#250;ng h&#224;nh vi.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="mb-3">
+    <div class="sec-title" style="border-bottom:2px solid #1D9E75;">
+      <span style="width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;margin-right:6px;background:#1D9E75;color:white;">2</span>
+      <span style="color:#085041;">Quy tr&#236;nh v&#224; c&#7843;i ti&#7871;n &#7903; feature Auto-Onboard m&#7899;i</span>
+    </div>
+    <div class="grid grid-cols-2 gap-3">
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-3">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-brand-700 text-xs font-bold">Lu&#7891;ng x&#7917; l&#253; Partial &#8212; 7 b&#432;&#7899;c</span>
+          <span class="badge-new">AUTO</span>
+        </div>
+        <div class="flex items-center gap-1 mb-3">
+          <div class="flex flex-col items-center"><div class="step-manual w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold">1</div><div class="text-gray-500 text-center mt-1" style="font-size:9px;max-width:48px;line-height:1.2">DA t&#7841;o SQL</div></div>
+          <span style="color:#7F77DD;font-size:14px;margin:0 2px;margin-bottom:12px;">›</span>
+          <div class="flex flex-col items-center"><div class="step-manual w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold">2</div><div class="text-gray-500 text-center mt-1" style="font-size:9px;max-width:48px;line-height:1.2">Submit request</div></div>
+          <span style="color:#7F77DD;font-size:14px;margin:0 2px;margin-bottom:12px;">›</span>
+          <div class="flex flex-col items-center"><div class="step-manual w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold">3</div><div class="text-gray-500 text-center mt-1" style="font-size:9px;max-width:48px;line-height:1.2">Admin duy&#7879;t</div></div>
+          <span style="color:#7F77DD;font-size:14px;margin:0 2px;margin-bottom:12px;">›</span>
+          <div class="flex flex-col items-center"><div class="step-auto w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold">4</div><div class="text-brand-600 text-center mt-1" style="font-size:9px;max-width:48px;line-height:1.2">Auto sync</div></div>
+          <span style="color:#7F77DD;font-size:14px;margin:0 2px;margin-bottom:12px;">›</span>
+          <div class="flex flex-col items-center"><div class="step-auto w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold">5</div><div class="text-brand-600 text-center mt-1" style="font-size:9px;max-width:48px;line-height:1.2">Auto SQL run</div></div>
+          <span style="color:#7F77DD;font-size:14px;margin:0 2px;margin-bottom:12px;">›</span>
+          <div class="flex flex-col items-center"><div class="step-auto w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold">6</div><div class="text-brand-600 text-center mt-1" style="font-size:9px;max-width:48px;line-height:1.2">Go live</div></div>
+          <span style="color:#7F77DD;font-size:14px;margin:0 2px;margin-bottom:12px;">›</span>
+          <div class="flex flex-col items-center"><div class="step-done w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold">7</div><div class="text-teal-600 text-center mt-1" style="font-size:9px;max-width:48px;line-height:1.2">BU activate</div></div>
+        </div>
+        <div class="bg-brand-50 border border-brand-200 rounded-lg px-2 py-1.5 text-xs text-brand-800 flex gap-2">
+          <span>&#129302;</span><span><strong>B&#432;&#7899;c 4&#8211;6 t&#7921; &#273;&#7897;ng ho&#224;n to&#224;n</strong> &#8212; kh&#244;ng c&#7847;n action th&#234;m t&#7915; DA hay Admin sau khi duy&#7879;t.</span>
+        </div>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 rounded-xl p-3">
+        <div class="text-gray-700 text-xs font-bold mb-2">C&#7843;i ti&#7871;n v&#7853;n h&#224;nh so v&#7899;i tr&#432;&#7899;c</div>
+        <div class="space-y-2">
+          <div class="grid grid-cols-2 gap-1.5">
+            <div><div class="text-coral-600 text-xs font-bold mb-1 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-coral-400 inline-block"></span> Sync &#8212; Tr&#432;&#7899;c</div><div class="bg-coral-50 border border-coral-100 rounded p-2 text-xs text-coral-700 leading-tight">Admin trigger th&#7911; c&#244;ng sau approve. D&#7877; delay v&#224;i gi&#7901;.</div></div>
+            <div><div class="text-teal-600 text-xs font-bold mb-1 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-teal-400 inline-block"></span> Sync &#8212; Sau</div><div class="bg-teal-50 border border-teal-100 rounded p-2 text-xs text-teal-800 leading-tight">T&#7921; trigger ngay khi SQL duy&#7879;t. Zero th&#7911; c&#244;ng.</div></div>
+          </div>
+          <div class="grid grid-cols-2 gap-1.5">
+            <div><div class="text-coral-600 text-xs font-bold mb-1 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-coral-400 inline-block"></span> TTL &#8212; Tr&#432;&#7899;c</div><div class="bg-coral-50 border border-coral-100 rounded p-2 text-xs text-coral-700 leading-tight">~2 ng&#224;y t&#7915; khi duy&#7879;t. BU ph&#7843;i ch&#7901; h&#244;m sau.</div></div>
+            <div><div class="text-teal-600 text-xs font-bold mb-1 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-teal-400 inline-block"></span> TTL &#8212; Sau</div><div class="bg-teal-50 border border-teal-100 rounded p-2 text-xs text-teal-800 leading-tight">&lt;6 ti&#7871;ng. Activate ngay trong ng&#224;y duy&#7879;t.</div></div>
+          </div>
+          <div class="grid grid-cols-2 gap-1.5">
+            <div><div class="text-coral-600 text-xs font-bold mb-1 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-coral-400 inline-block"></span> Data Table &#8212; Tr&#432;&#7899;c</div><div class="bg-coral-50 border border-coral-100 rounded p-2 text-xs text-coral-700 leading-tight">DA maintain th&#7911; c&#244;ng. T&#7889;n th&#7901;i gian, d&#7877; nh&#7847;m.</div></div>
+            <div><div class="text-teal-600 text-xs font-bold mb-1 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-teal-400 inline-block"></span> Data Table &#8212; Sau</div><div class="bg-teal-50 border border-teal-100 rounded p-2 text-xs text-teal-800 leading-tight">T&#7921; gen SQL tr&#234;n Athena. &#205;t handoff, &#237;t l&#7895;i h&#417;n.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 & 4 -->
+  <div class="grid grid-cols-2 gap-3 mb-3">
+    <div>
+      <div class="sec-title" style="border-bottom:2px solid #D85A30;">
+        <span style="width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;margin-right:6px;background:#D85A30;color:white;">3</span>
+        <span style="color:#993C1D;">L&#7907;i &#237;ch c&#7889;t l&#245;i</span>
+      </div>
+      <div class="space-y-2">
+        <div class="grid grid-cols-3 gap-2">
+          <div class="bg-brand-50 border border-brand-100 rounded-lg p-2 text-center"><div class="text-2xl mb-1">&#127919;</div><div class="text-brand-800 text-xs font-bold mb-1">Target ch&#237;nh x&#225;c</div><div class="text-gray-500 text-xs leading-tight">Segment theo h&#224;nh vi th&#7921;c t&#7871;.</div></div>
+          <div class="bg-amber-50 border border-amber-100 rounded-lg p-2 text-center"><div class="text-2xl mb-1">&#9889;</div><div class="text-amber-700 text-xs font-bold mb-1">Activate ngay</div><div class="text-gray-500 text-xs leading-tight">D&#249;ng trong Journey ngay sau duy&#7879;t.</div></div>
+          <div class="bg-teal-50 border border-teal-100 rounded-lg p-2 text-center"><div class="text-2xl mb-1">&#128260;</div><div class="text-teal-700 text-xs font-bold mb-1">Data t&#7921; refresh</div><div class="text-gray-500 text-xs leading-tight">Segment m&#7899;i theo l&#7883;ch DA config.</div></div>
+        </div>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-3">
+          <div class="text-gray-600 text-xs font-bold mb-2">So s&#225;nh SLA</div>
+          <div class="grid grid-cols-2 gap-2">
+            <div class="bg-brand-50 border-2 border-brand-400 rounded-lg p-2">
+              <div class="flex items-center justify-between mb-2"><span class="text-brand-900 text-xs font-bold">Partial</span><span class="badge-new">LIVE</span></div>
+              <div class="space-y-1">
+                <div><div class="text-gray-400 text-xs">Time to live</div><div class="text-brand-600 font-extrabold text-sm">&lt; 6 gi&#7901;</div></div>
+                <div><div class="text-gray-400 text-xs">Admin review</div><div class="text-gray-700 text-xs font-semibold">Kh&#244;ng c&#7847;n sau duy&#7879;t</div></div>
+                <div><div class="text-gray-400 text-xs">BU s&#7917; d&#7909;ng</div><div class="text-teal-600 text-xs font-bold">Ngay trong ng&#224;y &#10003;</div></div>
+              </div>
+            </div>
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-2">
+              <div class="flex items-center justify-between mb-2"><span class="text-gray-800 text-xs font-bold">Tag</span><span class="text-amber-500 text-xs font-bold">Manual</span></div>
+              <div class="space-y-1">
+                <div><div class="text-gray-400 text-xs">Time to live</div><div class="text-coral-400 font-extrabold text-sm">~2 ng&#224;y</div></div>
+                <div><div class="text-gray-400 text-xs">Admin review</div><div class="text-gray-700 text-xs font-semibold">T3 &amp; T5 h&#224;ng tu&#7847;n</div></div>
+                <div><div class="text-gray-400 text-xs">Coming soon</div><div class="text-brand-600 text-xs font-bold">Auto v2 &#8594; &lt;6h</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="sec-title" style="border-bottom:2px solid #BA7517;">
+        <span style="width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;margin-right:6px;background:#BA7517;color:white;">4</span>
+        <span style="color:#854F0B;">Roadmap</span>
+      </div>
+      <div class="space-y-2">
+        <div class="flex gap-2">
+          <div class="flex flex-col items-center"><div class="w-7 h-7 rounded-full bg-teal-400 flex items-center justify-center text-white text-xs font-bold shrink-0">&#10003;</div><div class="w-0.5 bg-gray-200 flex-1 my-1" style="min-height:14px"></div></div>
+          <div class="bg-teal-50 border border-teal-200 rounded-xl p-3 flex-1 mb-0">
+            <div class="flex items-center gap-1.5 mb-1"><span class="text-teal-700 text-xs font-extrabold">v1 · Partial Use Cases &#8211; Auto-Onboard</span><span class="badge-new">Released 5 May 2026</span></div>
+            <div class="text-gray-600 text-xs mb-1.5">Auto sync khi duy&#7879;t. TTL &lt;6h. Auto SQL gen tr&#234;n Athena. Data prep t&#7921; &#273;&#7897;ng.</div>
+            <div class="flex flex-wrap gap-1"><code>PARTIAL_VALUE_BY_TAG</code><code>AGGREGATION_WITHIN_DATE_RANGE</code></div>
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <div class="flex flex-col items-center"><div class="w-7 h-7 rounded-full bg-brand-600 flex items-center justify-center text-white text-xs font-bold shrink-0">2</div><div class="w-0.5 bg-gray-200 flex-1 my-1" style="min-height:14px"></div></div>
+          <div class="bg-brand-50 border border-brand-200 rounded-xl p-3 flex-1">
+            <div class="flex items-center gap-1.5 mb-1"><span class="text-brand-800 text-xs font-extrabold">v2 · Tag Use Cases &#8211; Auto-Onboard</span><span class="badge-soon">Planned 20 May 2026</span></div>
+            <div class="text-gray-600 text-xs mb-1.5">M&#7903; r&#7897;ng Auto-Onboard sang to&#224;n b&#7897; Tag use cases.</div>
+            <div class="flex flex-wrap gap-1"><code>MOST_RECENT</code><code>MOST_RECENT_WITHIN_DATE_RANGE</code></div>
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <div class="w-7 h-7 rounded-full flex items-center justify-center text-gray-400 text-xs font-bold shrink-0" style="border:2px dashed #D3D1C7;">3</div>
+          <div class="bg-white border border-gray-200 rounded-xl p-3 flex-1">
+            <div class="flex items-center gap-1.5 mb-1"><span class="text-gray-600 text-xs font-extrabold">v3 · Data Quality Controls</span><span class="text-gray-400 text-xs bg-gray-100 px-1.5 py-0.5 rounded font-semibold">Discussing</span></div>
+            <div class="text-gray-500 text-xs">Validation surfacing, freshness alerting, anomaly detection end-to-end.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="bg-gradient-to-r from-brand-900 to-teal-600 rounded-xl p-3 flex items-center justify-between">
+    <div>
+      <div class="text-white text-sm font-extrabold mb-0.5">S&#7861;n s&#224;ng activate ngay h&#244;m nay?</div>
+      <div class="text-blue-100 text-xs opacity-80">Partial &#273;&#227; live &#8212; submit request, h&#7879; th&#7889;ng t&#7921; x&#7917; l&#253; trong &lt;6h.</div>
+    </div>
+    <div class="flex items-center gap-2">
+      <div class="bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-center"><div class="text-white/60 text-xs">B&#432;&#7899;c 1</div><div class="text-white text-xs font-bold">DA t&#7841;o SQL &amp; submit</div></div>
+      <span class="text-teal-200 text-lg">›</span>
+      <div class="bg-white/10 border border-white/20 rounded-lg px-3 py-1.5 text-center"><div class="text-white/60 text-xs">B&#432;&#7899;c 2</div><div class="text-white text-xs font-bold">Admin duy&#7879;t</div></div>
+      <span class="text-teal-200 text-lg">›</span>
+      <div class="bg-teal-400/30 border border-teal-300/50 rounded-lg px-3 py-1.5 text-center"><div class="text-teal-200 text-xs">B&#432;&#7899;c 3</div><div class="text-white text-xs font-bold">BU activate &lt;6h &#10003;</div></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
