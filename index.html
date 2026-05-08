@@ -39,21 +39,33 @@ tailwind.config = {
 <div class="p-3 bg-white">
 
   <!-- HERO -->
-  <div class="bg-gradient-to-r from-brand-900 via-brand-600 to-teal-600 rounded-xl p-4 mb-3 flex items-start justify-between">
-    <div>
-      <div class="flex items-center gap-2 mb-1">
+  <div class="bg-gradient-to-r from-brand-900 via-brand-600 to-teal-600 rounded-xl p-4 mb-3">
+    <div class="text-center mb-4">
+      <div class="flex items-center justify-center gap-2 mb-1">
         <span class="text-teal-100 text-xs font-bold tracking-widest uppercase">Create Attribute Platform</span>
         <span class="badge-new">NEW</span>
         <span class="text-white/50 text-xs">Released 5 May 2026</span>
       </div>
       <h1 class="text-white text-xl font-extrabold leading-tight">Auto-Onboard — Partial Use Cases <span class="text-teal-200">Cheatsheet</span></h1>
-      <p class="text-blue-100 text-xs mt-1 opacity-80">BU/DA quick reference · &lt;6h Time to Live · Zero manual steps after approval</p>
+      <p class="text-blue-100 text-xs mt-1 opacity-80">BU/DA quick reference · Zero manual steps after approval</p>
     </div>
-    <div class="grid grid-cols-4 gap-2 text-center shrink-0 ml-4">
-      <div class="bg-white/10 border border-white/20 rounded-lg px-3 py-2"><div class="text-teal-200 text-base font-extrabold">&lt;6h</div><div class="text-white/60 text-xs">TTL</div></div>
-      <div class="bg-white/10 border border-white/20 rounded-lg px-3 py-2"><div class="text-teal-200 text-base font-extrabold">0</div><div class="text-white/60 text-xs">Manual steps</div></div>
-      <div class="bg-white/10 border border-white/20 rounded-lg px-3 py-2"><div class="text-white text-base font-extrabold">Same Day</div><div class="text-white/60 text-xs">BU Activation</div></div>
-      <div class="bg-white/10 border border-white/20 rounded-lg px-3 py-2"><div class="text-teal-200 text-base font-extrabold">&#8595; Risk</div><div class="text-white/60 text-xs">Human error</div></div>
+    <!-- KPI metrics centered & prominent -->
+    <div class="grid grid-cols-3 gap-3 max-w-xl mx-auto">
+      <div style="background:rgba(29,158,117,0.25);border:1.5px solid rgba(159,225,203,0.5);border-radius:14px;padding:14px 12px;text-align:center;">
+        <div style="font-size:28px;font-weight:900;color:#9FE1CB;line-height:1;">&lt;6h</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.75);margin-top:4px;font-weight:600;letter-spacing:.3px;">Time to Live</div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.45);margin-top:2px;">sau khi duyệt</div>
+      </div>
+      <div style="background:rgba(127,119,221,0.25);border:1.5px solid rgba(174,169,236,0.5);border-radius:14px;padding:14px 12px;text-align:center;">
+        <div style="font-size:28px;font-weight:900;color:#CECBF6;line-height:1;">Same Day</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.75);margin-top:4px;font-weight:600;letter-spacing:.3px;">BU Activation</div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.45);margin-top:2px;">trong ngày được duyệt</div>
+      </div>
+      <div style="background:rgba(216,90,48,0.2);border:1.5px solid rgba(240,153,123,0.45);border-radius:14px;padding:14px 12px;text-align:center;">
+        <div style="font-size:28px;font-weight:900;color:#F0997B;line-height:1;">&#8595; Risk</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.75);margin-top:4px;font-weight:600;letter-spacing:.3px;">Human Error</div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.45);margin-top:2px;">loại bỏ hoàn toàn</div>
+      </div>
     </div>
   </div>
 
@@ -152,16 +164,16 @@ tailwind.config = {
         <div class="text-gray-700 text-xs font-bold mb-2">C&#7843;i ti&#7871;n v&#7853;n h&#224;nh so v&#7899;i tr&#432;&#7899;c</div>
         <div class="space-y-2">
           <div class="grid grid-cols-2 gap-1.5">
-            <div><div class="text-coral-600 text-xs font-bold mb-1 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-coral-400 inline-block"></span> Sync &#8212; Tr&#432;&#7899;c</div><div class="bg-coral-50 border border-coral-100 rounded p-2 text-xs text-coral-700 leading-tight">Admin trigger th&#7911; c&#244;ng sau approve. D&#7877; delay v&#224;i gi&#7901;.</div></div>
-            <div><div class="text-teal-600 text-xs font-bold mb-1 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-teal-400 inline-block"></span> Sync &#8212; Sau</div><div class="bg-teal-50 border border-teal-100 rounded p-2 text-xs text-teal-800 leading-tight">T&#7921; trigger ngay khi SQL duy&#7879;t. Zero th&#7911; c&#244;ng.</div></div>
+            <div><div class="text-coral-600 text-xs font-bold mb-1 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-coral-400 inline-block"></span> Sync &#8212; Tr&#432;&#7899;c</div><div class="bg-coral-50 border border-coral-100 rounded p-2 text-xs text-coral-700 leading-tight">Admin trigger <span style="background:#D85A30;color:white;border-radius:3px;padding:0 4px;font-weight:700;font-size:9px;">thủ công</span> sau approve. Dễ <span style="background:#D85A30;color:white;border-radius:3px;padding:0 4px;font-weight:700;font-size:9px;">delay vài giờ.</span></div></div>
+            <div><div class="text-teal-600 text-xs font-bold mb-1 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-teal-400 inline-block"></span> Sync &#8212; Sau</div><div class="bg-teal-50 border border-teal-100 rounded p-2 text-xs text-teal-800 leading-tight"><span style="background:#1D9E75;color:white;border-radius:3px;padding:0 4px;font-weight:700;font-size:9px;">Tự trigger ngay</span> khi SQL duyệt. <span style="background:#1D9E75;color:white;border-radius:3px;padding:0 4px;font-weight:700;font-size:9px;">Zero thủ công.</span></div></div>
           </div>
           <div class="grid grid-cols-2 gap-1.5">
-            <div><div class="text-coral-600 text-xs font-bold mb-1 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-coral-400 inline-block"></span> TTL &#8212; Tr&#432;&#7899;c</div><div class="bg-coral-50 border border-coral-100 rounded p-2 text-xs text-coral-700 leading-tight">~2 ng&#224;y t&#7915; khi duy&#7879;t. BU ph&#7843;i ch&#7901; h&#244;m sau.</div></div>
-            <div><div class="text-teal-600 text-xs font-bold mb-1 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-teal-400 inline-block"></span> TTL &#8212; Sau</div><div class="bg-teal-50 border border-teal-100 rounded p-2 text-xs text-teal-800 leading-tight">&lt;6 ti&#7871;ng. Activate ngay trong ng&#224;y duy&#7879;t.</div></div>
+            <div><div class="text-coral-600 text-xs font-bold mb-1 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-coral-400 inline-block"></span> TTL &#8212; Tr&#432;&#7899;c</div><div class="bg-coral-50 border border-coral-100 rounded p-2 text-xs text-coral-700 leading-tight"><span style="background:#D85A30;color:white;border-radius:3px;padding:0 4px;font-weight:700;font-size:9px;">~2 ngày</span> từ khi duyệt. BU phải chờ hôm sau.</div></div>
+            <div><div class="text-teal-600 text-xs font-bold mb-1 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-teal-400 inline-block"></span> TTL &#8212; Sau</div><div class="bg-teal-50 border border-teal-100 rounded p-2 text-xs text-teal-800 leading-tight"><span style="background:#1D9E75;color:white;border-radius:3px;padding:0 4px;font-weight:700;font-size:9px;">&lt;6 tiếng.</span> <span style="background:#1D9E75;color:white;border-radius:3px;padding:0 4px;font-weight:700;font-size:9px;">Activate ngay</span> trong ngày duyệt.</div></div>
           </div>
           <div class="grid grid-cols-2 gap-1.5">
-            <div><div class="text-coral-600 text-xs font-bold mb-1 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-coral-400 inline-block"></span> Data Table &#8212; Tr&#432;&#7899;c</div><div class="bg-coral-50 border border-coral-100 rounded p-2 text-xs text-coral-700 leading-tight">DA maintain th&#7911; c&#244;ng. T&#7889;n th&#7901;i gian, d&#7877; nh&#7847;m.</div></div>
-            <div><div class="text-teal-600 text-xs font-bold mb-1 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-teal-400 inline-block"></span> Data Table &#8212; Sau</div><div class="bg-teal-50 border border-teal-100 rounded p-2 text-xs text-teal-800 leading-tight">T&#7921; gen SQL tr&#234;n Athena. &#205;t handoff, &#237;t l&#7895;i h&#417;n.</div></div>
+            <div><div class="text-coral-600 text-xs font-bold mb-1 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-coral-400 inline-block"></span> Data Table &#8212; Tr&#432;&#7899;c</div><div class="bg-coral-50 border border-coral-100 rounded p-2 text-xs text-coral-700 leading-tight">DA maintain <span style="background:#D85A30;color:white;border-radius:3px;padding:0 4px;font-weight:700;font-size:9px;">thủ công.</span> Tốn thời gian, dễ nhầm.</div></div>
+            <div><div class="text-teal-600 text-xs font-bold mb-1 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-teal-400 inline-block"></span> Data Table &#8212; Sau</div><div class="bg-teal-50 border border-teal-100 rounded p-2 text-xs text-teal-800 leading-tight"><span style="background:#1D9E75;color:white;border-radius:3px;padding:0 4px;font-weight:700;font-size:9px;">Tự gen SQL</span> trên Athena. <span style="background:#1D9E75;color:white;border-radius:3px;padding:0 4px;font-weight:700;font-size:9px;">Ít handoff, ít lỗi hơn.</span></div></div>
           </div>
         </div>
       </div>
